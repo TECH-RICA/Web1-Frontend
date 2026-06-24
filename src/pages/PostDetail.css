@@ -1,0 +1,309 @@
+.post-detail-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  position: relative;
+  min-height: 80vh;
+}
+
+.post-detail-back-btn {
+  background: var(--primary-light);
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-detail-back-btn:hover {
+  background: var(--primary);
+  color: #ffffff;
+  transform: translateX(-4px);
+}
+
+/* Centered Layout for Text-Only Posts */
+.detail-centered-container {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.detail-centered-container .post-card.detail-view {
+  border-left: 6px solid var(--primary);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Split Pane Layout for Media Posts */
+.detail-split-container {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  height: 680px;
+}
+
+.detail-media-column {
+  background-color: #0c0f14;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+
+.detail-media-column .post-media-container.detail-view {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+
+.detail-media-column .post-video-wrapper.detail-view,
+.detail-media-column .post-images-grid.detail-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detail-media-column .post-video.detail-view {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100%;
+}
+
+.detail-media-column .post-attachment-img.detail-view {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  max-height: 100%;
+  border: none;
+}
+
+.video-volume-btn.detail-view {
+  bottom: 24px;
+  left: 24px;
+  right: auto;
+}
+
+/* TikTok overlay positioning inside media detail view */
+.detail-media-column .media-vertical-actions {
+  right: 24px;
+  bottom: 24px;
+}
+
+/* Right Information & Comments Column */
+.detail-info-column {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-left: 2px solid var(--border);
+  background: #ffffff;
+}
+
+.detail-info-column .post-header {
+  padding: 20px;
+  margin-bottom: 0;
+}
+
+.detail-info-column .post-header.border-bottom {
+  border-bottom: 2px solid var(--border);
+}
+
+.detail-description-section {
+  padding: 20px;
+  border-bottom: 2px solid var(--border);
+  background-color: #fafbfc;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.detail-text {
+  margin: 0;
+  font-size: 15px;
+  color: #1a1d20;
+}
+
+/* Scrollable Comments List */
+.detail-comments-list-wrapper {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+}
+
+.detail-comments-list-wrapper h4 {
+  margin: 0 0 12px 0;
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.comments-list.detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.comment-item.detail-view {
+  display: flex;
+  gap: 12px;
+}
+
+.comment-item.detail-view .comment-content-box {
+  padding: 10px 14px;
+  background-color: #f0f4f9;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.comment-item.detail-view .comment-time {
+  font-size: 10px;
+  color: #8a94a6;
+  margin-top: 4px;
+  display: block;
+}
+
+.empty-comments {
+  text-align: center;
+  padding: 40px 20px;
+  font-style: italic;
+  color: #8a94a6;
+}
+
+/* Sticky Input Box at Right Column Bottom */
+.detail-comment-form-container {
+  padding: 16px 20px;
+  border-top: 2px solid var(--border);
+  background-color: #ffffff;
+}
+
+.comment-form.detail-view {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 0;
+}
+
+.comment-form.detail-view input {
+  flex: 1;
+  padding: 10px 16px;
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  font-size: 14px;
+  background-color: #f8f9fa;
+  color: #000000;
+  transition: all 0.2s ease;
+}
+
+.comment-form.detail-view input:focus {
+  border-color: var(--primary);
+  background-color: #ffffff;
+  outline: none;
+}
+
+.comment-form.detail-view button {
+  border-radius: 20px;
+  padding: 8px 16px;
+}
+
+/* Extra Styling for Centered Text layout icon buttons */
+.post-actions.flat-icons {
+  display: flex;
+  justify-content: space-around;
+  margin: 16px 0;
+}
+
+.action-btn-icon {
+  font-size: 20px;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 900px) {
+  .detail-split-container {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+  
+  .detail-media-column {
+    height: 400px;
+  }
+  
+  .detail-info-column {
+    height: 500px;
+    border-left: none;
+    border-top: 2px solid var(--border);
+  }
+  
+  .post-detail-page {
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .post-detail-page {
+    padding: 8px;
+  }
+  
+  .detail-split-container {
+    border-radius: 8px;
+  }
+
+  .detail-media-column {
+    height: 300px;
+  }
+
+  .detail-info-column {
+    height: 500px;
+  }
+
+  .detail-info-column .post-header {
+    padding: 16px;
+  }
+
+  .detail-description-section {
+    padding: 16px;
+    max-height: 120px;
+  }
+
+  .detail-comments-list-wrapper {
+    padding: 16px;
+  }
+
+  .detail-comment-form-container {
+    padding: 12px 16px;
+  }
+
+  .detail-centered-container .post-card {
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .post-actions.flat-icons {
+    grid-template-columns: 1fr 1fr;
+    display: grid;
+    gap: 8px;
+  }
+  
+  .action-btn-icon {
+    font-size: 16px;
+  }
+}
