@@ -7,16 +7,21 @@ const LoginPage: React.FC = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { login } = useAuthStore()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
+    setLoading(true)
     try {
       await login(email, password)
       navigate('/feed')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -40,6 +45,7 @@ const LoginPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className={error ? 'input-error' : ''}
                 required
               />
             </div>
@@ -50,14 +56,16 @@ const LoginPage: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className={error ? 'input-error' : ''}
                 required
               />
             </div>
 
             {error && <p className="error">{error}</p>}
 
-            <button type="submit" className="btn btn-primary btn-full">
-              Login
+            <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
+              {loading ? <span className="spinner"></span> : null}
+              {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
 

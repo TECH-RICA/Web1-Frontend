@@ -9,16 +9,21 @@ const RegisterPage: React.FC = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
   const { register } = useAuthStore()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    setError('')
+    setLoading(true)
     try {
       await register(email, password, firstName, lastName)
       navigate('/feed')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Registration failed')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -43,6 +48,7 @@ const RegisterPage: React.FC = () => {
                   type="text"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
+                  className={error ? 'input-error' : ''}
                   required
                 />
               </div>
@@ -52,6 +58,7 @@ const RegisterPage: React.FC = () => {
                   type="text"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
+                  className={error ? 'input-error' : ''}
                   required
                 />
               </div>
@@ -63,6 +70,7 @@ const RegisterPage: React.FC = () => {
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                className={error ? 'input-error' : ''}
                 required
               />
             </div>
@@ -73,14 +81,16 @@ const RegisterPage: React.FC = () => {
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                className={error ? 'input-error' : ''}
                 required
               />
             </div>
 
             {error && <p className="error">{error}</p>}
 
-            <button type="submit" className="btn btn-primary btn-full">
-              Register
+            <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
+              {loading ? <span className="spinner"></span> : null}
+              {loading ? 'Registering...' : 'Register'}
             </button>
           </form>
 
