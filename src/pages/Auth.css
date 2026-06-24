@@ -99,6 +99,8 @@ form {
   font-size: 15px;
   color: var(--text-dark);
   background-color: #ffffff;
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .form-group input:focus {

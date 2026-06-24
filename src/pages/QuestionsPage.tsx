@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { formatDistanceToNow } from 'date-fns'
 import './Questions.css'
+import { API_BASE_URL } from '../api';
 
 interface Question {
   id: number
@@ -58,7 +59,7 @@ const QuestionsPage: React.FC = () => {
       if (query) params.append('q', query)
       if (tag) params.append('tag', tag)
 
-      const res = await fetch(`http://localhost:5000/api/questions?${params.toString()}`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions?${params.toString()}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()

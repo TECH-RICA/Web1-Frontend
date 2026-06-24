@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import './Navbar.css'
+import { API_BASE_URL } from '../api';
 
 const Navbar: React.FC = () => {
   const { user, logout, token } = useAuthStore()
@@ -32,7 +33,7 @@ const Navbar: React.FC = () => {
       return
     }
     try {
-      const res = await fetch(`http://localhost:5000/api/search/all/${encodeURIComponent(val)}`, {
+      const res = await fetch(`${API_BASE_URL}/api/search/all/${encodeURIComponent(val)}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()

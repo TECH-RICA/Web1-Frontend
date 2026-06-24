@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { API_BASE_URL } from '../api';
 
 interface Connection {
   id: number
@@ -36,7 +37,7 @@ const ConnectionsPage: React.FC = () => {
     setLoading(true)
     try {
       // Fetch accepted connections
-      const connRes = await fetch(`http://localhost:5000/api/connections/${user?.id}`)
+      const connRes = await fetch(`${API_BASE_URL}/api/connections/${user?.id}`)
       const connData = await connRes.json()
       if (connRes.ok) {
         setConnections(connData)
@@ -44,7 +45,7 @@ const ConnectionsPage: React.FC = () => {
 
       // Fetch pending requests
       if (token) {
-        const reqRes = await fetch('http://localhost:5000/api/connections/user/pending', {
+        const reqRes = await fetch(`${API_BASE_URL}/api/connections/user/pending`, {
           headers: { 'Authorization': `Bearer ${token}` }
         })
         const reqData = await reqRes.json()
@@ -62,7 +63,7 @@ const ConnectionsPage: React.FC = () => {
   const handleAccept = async (requestId: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/connections/${requestId}/accept`, {
+      const res = await fetch(`${API_BASE_URL}/api/connections/${requestId}/accept`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -89,7 +90,7 @@ const ConnectionsPage: React.FC = () => {
   const handleReject = async (requestId: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/connections/${requestId}/reject`, {
+      const res = await fetch(`${API_BASE_URL}/api/connections/${requestId}/reject`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       })

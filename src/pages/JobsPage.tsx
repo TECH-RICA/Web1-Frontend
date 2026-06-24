@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAuthStore } from '../store/authStore'
+import { API_BASE_URL } from '../api';
 
 interface Job {
   id: number
@@ -28,7 +29,7 @@ const JobsPage: React.FC = () => {
   const fetchJobs = async () => {
     setLoading(true)
     try {
-      let url = 'http://localhost:5000/api/jobs'
+      let url = `${API_BASE_URL}/api/jobs`
       if (selectedExperience) {
         url += `?experience_level=${selectedExperience}`
       }
@@ -47,7 +48,7 @@ const JobsPage: React.FC = () => {
   const handleApply = async (jobId: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/jobs/${jobId}/apply`, {
+      const res = await fetch(`${API_BASE_URL}/api/jobs/${jobId}/apply`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { API_BASE_URL } from '../api';
 
 interface User {
   id: number
@@ -15,7 +16,7 @@ interface AuthStore {
   logout: () => void
 }
 
-const API_URL = 'http://localhost:5000/api'
+const API_URL = `${API_BASE_URL}/api`
 
 export const useAuthStore = create<AuthStore>((set) => ({
   user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')!) : null,

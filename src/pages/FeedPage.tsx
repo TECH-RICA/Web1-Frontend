@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import './Feed.css'
+import { API_BASE_URL } from '../api';
 
 interface Post {
   id: number
@@ -150,7 +151,7 @@ const PostCardComponent: React.FC<{ post: Post; token: string }> = ({ post, toke
   const handleLike = async () => {
     try {
       const method = isLiked ? 'DELETE' : 'POST'
-      const res = await fetch(`http://localhost:5000/api/posts/${post.id}/like`, {
+      const res = await fetch(`${API_BASE_URL}/api/posts/${post.id}/like`, {
         method,
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -166,7 +167,7 @@ const PostCardComponent: React.FC<{ post: Post; token: string }> = ({ post, toke
   const fetchComments = async () => {
     setLoadingComments(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${post.id}/comments`)
+      const res = await fetch(`${API_BASE_URL}/api/posts/${post.id}/comments`)
       const data = await res.json()
       if (res.ok) {
         setComments(data)
@@ -189,7 +190,7 @@ const PostCardComponent: React.FC<{ post: Post; token: string }> = ({ post, toke
     e.preventDefault()
     if (!newComment.trim()) return
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${post.id}/comments`, {
+      const res = await fetch(`${API_BASE_URL}/api/posts/${post.id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -434,7 +435,7 @@ const FeedPage: React.FC = () => {
 
   const fetchActiveMembers = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/users/active-members', {
+      const res = await fetch(`${API_BASE_URL}/api/users/active-members`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.ok) {
@@ -447,7 +448,7 @@ const FeedPage: React.FC = () => {
 
   const fetchTrendingTopics = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/posts/trending/topics', {
+      const res = await fetch(`${API_BASE_URL}/api/posts/trending/topics`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (res.ok) {
@@ -460,7 +461,7 @@ const FeedPage: React.FC = () => {
 
   const handleConnect = async (userId: number) => {
     try {
-      const res = await fetch('http://localhost:5000/api/connections/request', {
+      const res = await fetch(`${API_BASE_URL}/api/connections/request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -481,7 +482,7 @@ const FeedPage: React.FC = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/posts/feed', {
+      const res = await fetch(`${API_BASE_URL}/api/posts/feed`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -513,7 +514,7 @@ const FeedPage: React.FC = () => {
       })
 
       try {
-        const uploadRes = await fetch('http://localhost:5000/api/upload', {
+        const uploadRes = await fetch(`${API_BASE_URL}/api/upload`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`
@@ -546,7 +547,7 @@ const FeedPage: React.FC = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/posts', {
+      const res = await fetch(`${API_BASE_URL}/api/posts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

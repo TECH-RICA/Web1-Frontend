@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useAuthStore } from '../store/authStore'
 import { formatDistanceToNow } from 'date-fns'
+import { API_BASE_URL } from '../api';
 
 interface Conversation {
   id: number
@@ -58,7 +59,7 @@ const MessagesPage: React.FC = () => {
   const fetchConversations = async () => {
     setLoadingConvs(true)
     try {
-      const res = await fetch('http://localhost:5000/api/messages/conversations', {
+      const res = await fetch(`${API_BASE_URL}/api/messages/conversations`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -75,7 +76,7 @@ const MessagesPage: React.FC = () => {
   const fetchMessages = async (convId: number) => {
     setLoadingMessages(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/messages/${convId}/messages`, {
+      const res = await fetch(`${API_BASE_URL}/api/messages/${convId}/messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -94,7 +95,7 @@ const MessagesPage: React.FC = () => {
     if (!newMessage.trim() || !selectedConv || !token) return
 
     try {
-      const res = await fetch('http://localhost:5000/api/messages/send', {
+      const res = await fetch(`${API_BASE_URL}/api/messages/send`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

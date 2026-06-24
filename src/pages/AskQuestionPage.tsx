@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import './Questions.css'
+import { API_BASE_URL } from '../api';
 
 const AskQuestionPage: React.FC = () => {
   const { token } = useAuthStore()
@@ -29,7 +30,7 @@ const AskQuestionPage: React.FC = () => {
 
     setSubmitting(true)
     try {
-      const res = await fetch('http://localhost:5000/api/questions', {
+      const res = await fetch(`${API_BASE_URL}/api/questions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

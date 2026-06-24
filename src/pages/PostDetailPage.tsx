@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { formatDistanceToNow } from 'date-fns'
 import './PostDetail.css'
+import { API_BASE_URL } from '../api';
 
 interface Post {
   id: number
@@ -61,7 +62,7 @@ const PostDetailPage: React.FC = () => {
   const fetchPostDetails = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/posts/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (!res.ok) {
@@ -84,7 +85,7 @@ const PostDetailPage: React.FC = () => {
   const fetchComments = async () => {
     setLoadingComments(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${id}/comments`)
+      const res = await fetch(`${API_BASE_URL}/api/posts/${id}/comments`)
       if (res.ok) {
         const data = await res.json()
         setComments(data)
@@ -100,7 +101,7 @@ const PostDetailPage: React.FC = () => {
     if (!post) return
     try {
       const method = isLiked ? 'DELETE' : 'POST'
-      const res = await fetch(`http://localhost:5000/api/posts/${post.id}/like`, {
+      const res = await fetch(`${API_BASE_URL}/api/posts/${post.id}/like`, {
         method,
         headers: { 'Authorization': `Bearer ${token}` }
       })
@@ -117,7 +118,7 @@ const PostDetailPage: React.FC = () => {
     e.preventDefault()
     if (!post || !newComment.trim()) return
     try {
-      const res = await fetch(`http://localhost:5000/api/posts/${post.id}/comments`, {
+      const res = await fetch(`${API_BASE_URL}/api/posts/${post.id}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

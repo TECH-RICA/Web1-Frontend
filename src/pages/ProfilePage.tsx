@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import { API_BASE_URL } from '../api';
 
 interface UserProfile {
   id: number
@@ -23,7 +24,7 @@ const ProfilePage: React.FC = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/users/${userId}/full-profile`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${userId}/full-profile`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()

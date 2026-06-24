@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { format } from 'date-fns'
 import './Chat.css'
+import { API_BASE_URL } from '../api';
 
 interface User {
   id: number
@@ -85,7 +86,7 @@ const ChatRoomPage: React.FC = () => {
 
   const fetchRoomDetails = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/chat/rooms/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/chat/rooms/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -101,7 +102,7 @@ const ChatRoomPage: React.FC = () => {
 
   const fetchMessages = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/chat/rooms/${id}/messages`, {
+      const res = await fetch(`${API_BASE_URL}/api/chat/rooms/${id}/messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       const data = await res.json()
@@ -118,7 +119,7 @@ const ChatRoomPage: React.FC = () => {
   const pollMessagesAndDetails = async () => {
     try {
       // Fetch room details
-      const detailsRes = await fetch(`http://localhost:5000/api/chat/rooms/${id}`, {
+      const detailsRes = await fetch(`${API_BASE_URL}/api/chat/rooms/${id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (detailsRes.ok) {
@@ -128,7 +129,7 @@ const ChatRoomPage: React.FC = () => {
       }
 
       // Fetch messages
-      const msgsRes = await fetch(`http://localhost:5000/api/chat/rooms/${id}/messages`, {
+      const msgsRes = await fetch(`${API_BASE_URL}/api/chat/rooms/${id}/messages`, {
         headers: { 'Authorization': `Bearer ${token}` }
       })
       if (msgsRes.ok) {
@@ -159,7 +160,7 @@ const ChatRoomPage: React.FC = () => {
     setInputMessage('')
 
     try {
-      const res = await fetch(`http://localhost:5000/api/chat/rooms/${id}/messages`, {
+      const res = await fetch(`${API_BASE_URL}/api/chat/rooms/${id}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -182,7 +183,7 @@ const ChatRoomPage: React.FC = () => {
 
   const handleStarMessage = async (messageId: number) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/chat/messages/${messageId}/star`, {
+      const res = await fetch(`${API_BASE_URL}/api/chat/messages/${messageId}/star`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` }
       })

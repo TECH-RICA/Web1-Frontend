@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useAuthStore } from '../store/authStore'
 import { formatDistanceToNow } from 'date-fns'
+import { API_BASE_URL } from '../api';
 
 interface Article {
   id: number
@@ -43,7 +44,7 @@ const ArticlesPage: React.FC = () => {
   const fetchArticles = async () => {
     setLoading(true)
     try {
-      const res = await fetch('http://localhost:5000/api/articles')
+      const res = await fetch(`${API_BASE_URL}/api/articles`)
       const data = await res.json()
       if (res.ok) {
         setArticles(data)
@@ -66,14 +67,14 @@ const ArticlesPage: React.FC = () => {
     setLoadingComments(true)
     try {
       // Fetch article comments
-      const res = await fetch(`http://localhost:5000/api/articles/${articleId}/comments`)
+      const res = await fetch(`${API_BASE_URL}/api/articles/${articleId}/comments`)
       const data = await res.json()
       if (res.ok) {
         setComments(data)
       }
 
       // Proactively trigger view increment
-      fetch(`http://localhost:5000/api/articles/${articleId}`)
+      fetch(`${API_BASE_URL}/api/articles/${articleId}`)
     } catch (err) {
       console.error('Failed to fetch article details/comments', err)
     } finally {
@@ -85,7 +86,7 @@ const ArticlesPage: React.FC = () => {
     e.preventDefault()
     if (!newComment.trim() || !token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/articles/${articleId}/comments`, {
+      const res = await fetch(`${API_BASE_URL}/api/articles/${articleId}/comments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

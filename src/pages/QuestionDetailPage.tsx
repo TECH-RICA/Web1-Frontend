@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { formatDistanceToNow } from 'date-fns'
 import './Questions.css'
+import { API_BASE_URL } from '../api';
 
 interface Question {
   id: number
@@ -54,7 +55,7 @@ const QuestionDetailPage: React.FC = () => {
   const fetchQuestionDetails = async () => {
     setLoading(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/${id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions/${id}`, {
         headers: { 
           'Authorization': `Bearer ${token}` 
         }
@@ -78,7 +79,7 @@ const QuestionDetailPage: React.FC = () => {
   const handleQuestionVote = async (voteValue: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/${id}/vote`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions/${id}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -102,7 +103,7 @@ const QuestionDetailPage: React.FC = () => {
   const handleAnswerVote = async (answerId: number, voteValue: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/answers/${answerId}/vote`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions/answers/${answerId}/vote`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ const QuestionDetailPage: React.FC = () => {
   const handleAcceptAnswer = async (answerId: number) => {
     if (!token) return
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/answers/${answerId}/accept`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions/answers/${answerId}/accept`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -165,7 +166,7 @@ const QuestionDetailPage: React.FC = () => {
 
     setSubmitting(true)
     try {
-      const res = await fetch(`http://localhost:5000/api/questions/${id}/answers`, {
+      const res = await fetch(`${API_BASE_URL}/api/questions/${id}/answers`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
