@@ -5,6 +5,8 @@ import { useAuthStore } from './store/authStore'
 // Pages
 import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import FeedPage from './pages/FeedPage'
 import ProfilePage from './pages/ProfilePage'
 import ConnectionsPage from './pages/ConnectionsPage'
@@ -32,6 +34,8 @@ const App: React.FC = () => {
           <Routes>
             <Route path="/login" element={!user ? <LoginPage /> : <Navigate to="/feed" />} />
             <Route path="/register" element={!user ? <RegisterPage /> : <Navigate to="/feed" />} />
+            <Route path="/forgot-password" element={!user ? <ForgotPasswordPage /> : <Navigate to="/feed" />} />
+            <Route path="/reset-password" element={!user ? <ResetPasswordPage /> : <Navigate to="/feed" />} />
             
             {user ? (
               <>
